@@ -37,13 +37,22 @@ router.get('/celebrities/:id',(req,res,next)=>{
 
 router.post('/celebrities', (req,res,next) => {
   const { name, occupation, catchphrase } = req.body
-  celebrity.create({name, occupation, catchphrase})
+  Celebrity.create({name, occupation, catchphrase})
   .then(createdCelebrity => {
+    // res.render('celebrities/show', {celebrity: createdCelebrity})
+    res.redirect(`/celebrities/${createdCelebrity._id}`)
 
   })
 })
 
-
+router.post('/celebrities/:id/delete', (req,res,next) =>{
+  const id = req.params.id
+  Celebrity.findByIdAndRemove(id)
+  .then(deletedCelebrity => {
+    console.log(deletedCelebrity)
+    res.redirect('/celebrities')
+  })
+})
 
 
 module.exports = router;
