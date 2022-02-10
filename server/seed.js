@@ -4,7 +4,7 @@ mongoose.connect('mongodb://localhost/Celebrities')
 	.catch(err => console.log(err))
 
 const Celebrity = require("./models/Celebrity.model")
-
+const Movie = require('./models/Movies.js')
 
 const Celebrities = [
     { 
@@ -27,9 +27,26 @@ const Celebrities = [
 
 ]
 
+const Movies = [
+  { 
+    ttile: 'Brick',
+    genre: 'Noir',
+    plot:'oooOOO',
+    cast: 'JGL',
+  },
+
+  
+
+]
+
 
 Celebrity.create(Celebrities)
 .then(Celebrities => {
     console.log('Celebs added to db')
+})
+
+Movie.create(Movies)
+.then(Movies => {
+  console.log('Movies added to DB')
 })
  

@@ -1,6 +1,8 @@
 const router = require("express").Router();
+const { route } = require("express/lib/application");
 const Celebrity = require("../models/Celebrity.js");
 const Celebrities = require('../models/Celebrity.js')
+const Movie = require('../models/Movies')
 
 router.get("/", (req, res, next) => {
   res.render('Home.hbs')
@@ -52,6 +54,29 @@ router.post('/celebrities/:id/delete', (req,res,next) =>{
     console.log(deletedCelebrity)
     res.redirect('/celebrities')
   })
+})
+
+router.get('/movies/new', (req,res,next) => {
+  res.render('movies/new.hbs')
+})
+
+router.post('/movies', (req,res,next) => {
+  const { title, genre, plot, cast } = req.body
+  Movie.create({title, genre, plot, cast})
+  .then(createdMovie => {
+    res.redirect(`/movies/${createdMovie._id}`)
+
+  })
+})
+
+router.get('/movies/:id',(req,res,next)=>{
+  const id = req.params.id
+    Movie.findById(id)
+    .then(moviesFromDB => {
+      console.log(id)
+      res.render('movies/show.hbs', {Movies: moviesFromDB})
+    })
+    .catch(err => next(err))
 })
 
 
