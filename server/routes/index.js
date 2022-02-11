@@ -57,7 +57,10 @@ router.post('/celebrities/:id/delete', (req,res,next) =>{
 })
 
 router.get('/movies/new', (req,res,next) => {
-  res.render('movies/new.hbs')
+  Celebrity.find().then(Celebrities =>{
+    res.render('movies/new.hbs', {Celebrities})
+  })
+ 
 })
 
 router.post('/movies', (req,res,next) => {

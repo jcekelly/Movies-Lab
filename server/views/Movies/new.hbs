@@ -16,8 +16,13 @@
 <li> <label for="plot">Plot:</label>
 <input type="text" name="plot" id="plot" > </li>
 
-<li> <label for="cast">Cast:</label>
-<input type="text" name="cast" id="cast" > </li>
+<li>  <select name="cast" multiple>
+
+    {{#each Celebrities }}
+      <option value="{{this._id}}">{{this.name}}</option>
+    {{/each}}
+  </select>
+</li>
 
 <button type="submit">Add Movie</button>
 
